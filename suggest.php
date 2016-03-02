@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $email_body .= "Details " . $details . "\n";
         
         $mail->setFrom($email, $name);
-        $mail->addAddress('ron@ravshan.co.uk', 'Ron');     // Add a recipient
+        $mail->addAddress('rkhudoyberdiev@gmail.com');     // Add a recipient
         
         $mail->isHTML(false);                                  // Set email format to HTML
         
