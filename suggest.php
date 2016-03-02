@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     require("inc/phpmailer/class.phpmailer.php");
     
-    $mail = new PHPMailer;
+    $mail = new PHPMailer();
     
     if (!isset($error_message) && !$mail->ValidateAddress($email)) {
         $error_message = "Invalid Email Address";
