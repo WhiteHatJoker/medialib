@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail->Password = "ravwan25081991";
 
         $mail->setFrom($email, $name);
-        $mail->addAddress('rkhudoyberdiev@gmail.com');     // Add a recipient
+        $mail->addAddress('ron@ravshan.co.uk');     // Add a recipient
         
         $mail->Subject = 'Personal Media Library Suggestion from ' . $name;
         $mail->Body    = $email_body;
