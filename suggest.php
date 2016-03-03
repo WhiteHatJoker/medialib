@@ -18,6 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     
     require("inc/phpmailer/class.phpmailer.php");
+    require_once 'inc/swiftmailer/lib/swift_required.php';
     
     $mail = new PHPMailer;
     
@@ -37,29 +38,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $email_body .= "Year " . $year . "\n";
         $email_body .= "Details " . $details . "\n";
         
-        $mail->isSMTP(); // enable SMTP
-        $mail->SMTPDebug = 2; // debugging: 1 = errors and messages, 2 = messages only
-        $mail->Debugoutput = 'html';
-        $mail->SMTPAuth = true; // authentication enabled
-        $mail->SMTPSecure = 'tls'; // secure transfer enabled REQUIRED for Gmail
-        $mail->Host = "smtp.gmail.com";
-        $mail->Port = 587; // or 587
-        $mail->isHTML(false);                           // Set email format to HTML
-        $mail->Username = "rkhudoyberdiev@gmail.com";
-        $mail->Password = "ravwan25081991";
+        $transporter = Swift_SmtpTransport::newInstance('smtp.gmail.com', 465, 'ssl')
+        ->setUsername("rkhudoyberdiev@gmail.com")
+        ->setPassword("ravwan25081991");
+        $mailer = \Swift_Mailer::newInstance($transporter);
+  
+        $message = \Swift_Message::newInstance();
+        $message->setSubject('Personal Media Library Suggestion from ' . $name);
+        $message->setFrom(array(
+           $email => $name
+        ));
+        $message->setTo(array('ron@ravshan.co.uk'));
+        $message->setBody($email_body);
+    
+        $result = $mailer->send($message);
 
-        $mail->setFrom($email, $name);
-        $mail->addAddress('ron@ravshan.co.uk', 'Ron');     // Add a recipient
         
-        $mail->Subject = 'Personal Media Library Suggestion from ' . $name;
-        $mail->Body    = $email_body;
-        
-        if($mail->send()) {
+        if($result>0) {
             header("location:suggest.php?status=thanks");
             exit;
         }
         $error_message = 'Message could not be sent.';
-        $error_message .= 'Mailer Error: ' . $mail->ErrorInfo;
     }
     
 }
