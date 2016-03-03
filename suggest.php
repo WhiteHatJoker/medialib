@@ -37,10 +37,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $email_body .= "Year " . $year . "\n";
         $email_body .= "Details " . $details . "\n";
         
+        $mail->IsSMTP(); // enable SMTP
+        $mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
+        $mail->SMTPAuth = true; // authentication enabled
+        $mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for Gmail
+        $mail->Host = "smtp.gmail.com";
+        $mail->Port = 465; // or 587
+        $mail->isHTML(false);                           // Set email format to HTML
+        $mail->Username = "rkhudoyberdiev@gmail.com";
+        $mail->Password = "ravwan25081991";
+
         $mail->setFrom($email, $name);
         $mail->addAddress('rkhudoyberdiev@gmail.com');     // Add a recipient
-        
-        $mail->isHTML(false);                                  // Set email format to HTML
         
         $mail->Subject = 'Personal Media Library Suggestion from ' . $name;
         $mail->Body    = $email_body;
