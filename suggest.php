@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     require("inc/phpmailer/class.phpmailer.php");
     
-    $mail = new PHPMailer();
+    $mail = new PHPMailer;
     
     if (!isset($error_message) && !$mail->ValidateAddress($email)) {
         $error_message = "Invalid Email Address";
@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $email_body .= "Year " . $year . "\n";
         $email_body .= "Details " . $details . "\n";
         
-        $mail->IsSMTP(); // enable SMTP
+        $mail->isSMTP(); // enable SMTP
         $mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
         $mail->SMTPAuth = true; // authentication enabled
         $mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for Gmail
