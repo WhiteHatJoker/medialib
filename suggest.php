@@ -38,17 +38,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $email_body .= "Details " . $details . "\n";
         
         $mail->isSMTP(); // enable SMTP
-        $mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
+        $mail->SMTPDebug = 2; // debugging: 1 = errors and messages, 2 = messages only
+        $mail->Debugoutput = 'html';
         $mail->SMTPAuth = true; // authentication enabled
-        $mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for Gmail
+        $mail->SMTPSecure = 'tls'; // secure transfer enabled REQUIRED for Gmail
         $mail->Host = "smtp.gmail.com";
-        $mail->Port = 465; // or 587
+        $mail->Port = 587; // or 587
         $mail->isHTML(false);                           // Set email format to HTML
         $mail->Username = "rkhudoyberdiev@gmail.com";
         $mail->Password = "ravwan25081991";
 
         $mail->setFrom($email, $name);
-        $mail->addAddress('ron@ravshan.co.uk');     // Add a recipient
+        $mail->addAddress('ron@ravshan.co.uk', 'Ron');     // Add a recipient
         
         $mail->Subject = 'Personal Media Library Suggestion from ' . $name;
         $mail->Body    = $email_body;
