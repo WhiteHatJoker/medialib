@@ -5,8 +5,8 @@
 		<div class="wrapper">
 
 			<ul>		
-				<li><a href="http://twitter.com/treehouse">Twitter</a></li>
-				<li><a href="https://www.facebook.com/TeamTreehouse">Facebook</a></li>
+				<li><a href="https://twitter.com/DoTA4FuNi">Twitter</a></li>
+				<li><a href="https://www.facebook.com/ravshan.khudoyberdiev">Facebook</a></li>
 			</ul>
 
 			<p>&copy;<?php echo date("Y"); ?> Personal Media Library</p>
