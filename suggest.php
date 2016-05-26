@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = trim(filter_input(INPUT_POST,"name",FILTER_SANITIZE_STRING));
@@ -9,22 +9,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $genre = trim(filter_input(INPUT_POST,"genre",FILTER_SANITIZE_STRING));
     $year = trim(filter_input(INPUT_POST,"year",FILTER_SANITIZE_STRING));
     $details = trim(filter_input(INPUT_POST,"details",FILTER_SANITIZE_SPECIAL_CHARS));
-    
+
     if ($name == "" || $email == "" || $category == "" || $title == "") {
         $error_message = "Please fill in the required fields: Name, Email, Category and Title";
     }
     if (!isset($error_message) && $_POST["address"] != "") {
         $error_message = "Bad form input";
     }
-    
+
     require 'inc/phpmailer/PHPMailerAutoload.php';
-    
+
     $mail = new PHPMailer;
-    
+
     if (!isset($error_message) && !$mail->ValidateAddress($email)) {
         $error_message = "Invalid Email Address";
     }
-    
+
     if (!isset($error_message)) {
         $email_body = "";
         $email_body .= "Name " . $name . "\n";
@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $email_body .= "Genre " . $genre . "\n";
         $email_body .= "Year " . $year . "\n";
         $email_body .= "Details " . $details . "\n";
-        
+
         $mail->isSMTP(); // enable SMTP
         $mail->SMTPDebug = 2; // debugging: 1 = errors and messages, 2 = messages only
         $mail->Debugoutput = 'html';
@@ -45,15 +45,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail->Host = "smtp.gmail.com";
         $mail->Port = 587; // or 587
         $mail->isHTML(false);                           // Set email format to HTML
-        $mail->Username = "rkhudoyberdiev@gmail.com";
-        $mail->Password = "ravwan25081991";
+        $mail->Username = "";
+        $mail->Password = "";
 
         $mail->setFrom($email, $name);
-        $mail->addAddress('ron@ravshan.co.uk', 'Ron');     // Add a recipient
-        
+        $mail->addAddress('', '');     // Add a recipient email and name
+
         $mail->Subject = 'Personal Media Library Suggestion from ' . $name;
         $mail->Body    = $email_body;
-        
+
         if($mail->send()) {
             header("location:suggest.php?status=thanks");
             exit;
@@ -61,13 +61,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error_message = 'Message could not be sent.';
         $error_message .= 'Mailer Error: ' . $mail->ErrorInfo;
     }
-    
+
 }
 
 $pageTitle = "Suggest a Media Item";
 $section = "suggest";
 
-include("inc/header.php"); 
+include("inc/header.php");
 ?>
 
 <div class="section page">
